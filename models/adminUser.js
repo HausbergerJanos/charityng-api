@@ -11,11 +11,11 @@ const ApiKeySchema = Schema({
 const AdminUserSchema = Schema({
     email: { type: String, required: true, unique: true },
     firstName: { type: String, required: true },
-    lasttName: { type: String, required: true },
+    lastName: { type: String, required: true },
     password: { type: String, required: true },
     apiKeys: { type: [ApiKeySchema], default: [] },
 }, {
     timestamps: true
 });
 
-module.exports = mongoose.model("UserAdmin", AdminUserSchema);
+module.exports = mongoose.model("AdminUser", AdminUserSchema);
