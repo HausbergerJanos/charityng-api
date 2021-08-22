@@ -200,11 +200,10 @@ module.exports = {
 			// Read the api key from header
 			const apiKey = req.headers["api-key"];
 			if (req.$action.auth === false) {
-				return;
+				return null;
 			}
 			if (apiKey) {
 				const user = await ctx.call('users.findByApiKey', { apiKey })
-				ctx.meta.currentUser = user
 				if (user) {
 					return user;
 				} else {
