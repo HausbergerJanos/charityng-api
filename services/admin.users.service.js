@@ -58,6 +58,25 @@ module.exports = {
     },
 
 	methods: {
+        async initializeAdminUser() {
+            const count = await this.adapter.count();
+            if (count === 0) {
+                console.log("\n\n🎈 Initialize first admin user from env variables\n\n")
+                await this.broker.call("admin.users.create", {
+                    adminUser: {
+                        email: process.env.ADMIN_USER_EMAIL,
+                        password: process.env.ADMIN_USER_PASSWORD,
+                        firstName: "Default",
+                        lastName: "Admin"
+                    },
+                    deviceId: "SYSTEM"
+                })
+            }
+        }
+    },
 
+    started() {
+        console.error("admin.users.service called");
+        this.initializeAdminUser();
     }
 };
